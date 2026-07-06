@@ -38,8 +38,14 @@ export function Journal() {
                   <button
                     type="button"
                     onClick={() => openFor(a)}
-                    className="block w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-3xl"
-                    aria-label={`Read: ${a.title}`}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        openFor(a);
+                      }
+                    }}
+                    className="block w-full cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-3xl transition-transform duration-200 active:scale-[0.99]"
+                    aria-label={`Read the story: ${a.title}`}
                   >
                     <div className="overflow-hidden rounded-3xl warm-shadow">
                       <img
@@ -55,12 +61,18 @@ export function Journal() {
                     <p className="mt-5 text-xs uppercase tracking-widest text-foreground/60">
                       {a.country} · {a.readingTime}
                     </p>
-                    <h3 className="mt-2 font-display text-2xl leading-tight transition-colors group-hover:text-terracotta">
+                    <h3 className="mt-2 font-display text-2xl leading-tight transition-colors duration-300 group-hover:text-terracotta">
                       {a.title}
                     </h3>
                     <p className="mt-2 text-sm text-foreground/70">{a.excerpt}</p>
-                    <span className="mt-3 inline-flex items-center gap-1.5 text-sm text-terracotta">
-                      Read the story <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+                    <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-terracotta transition-colors duration-300 group-hover:text-terracotta-deep">
+                      <span className="border-b border-transparent transition-colors duration-300 group-hover:border-current">
+                        Read the story
+                      </span>
+                      <ArrowRight
+                        className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"
+                        aria-hidden
+                      />
                     </span>
                   </button>
                 </article>
