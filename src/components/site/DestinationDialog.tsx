@@ -126,26 +126,37 @@ export function DestinationDialog({ destination, open, onOpenChange }: Props) {
 
             <Section title="Photo gallery">
               <div className="grid grid-cols-3 gap-2">
-                {destination.gallery.map((src, i) => (
-                  <div
-                    key={i}
-                    className="overflow-hidden rounded-xl warm-shadow"
-                  >
-                    <img
-                      src={src}
-                      alt={`${destination.name} scene ${i + 1}`}
-                      loading="lazy"
-                      className="aspect-square h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                      onError={(e) => {
-                        const img = e.currentTarget;
-                        if (!img.dataset.fallback) {
-                          img.dataset.fallback = "1";
-                          img.src = destination.image;
-                        }
-                      }}
-                    />
-                  </div>
-                ))}
+                {destination.galleryThemes.map((theme, i) => {
+                  const src = galleryQuery.data?.[i];
+                  const isLoading = galleryQuery.isLoading || !src;
+                  return (
+                    <div
+                      key={`${theme}-${i}`}
+                      className="relative overflow-hidden rounded-xl warm-shadow bg-muted"
+                    >
+                      {isLoading ? (
+                        <div
+                          className="aspect-square h-full w-full animate-pulse bg-muted"
+                          aria-hidden
+                        />
+                      ) : (
+                        <img
+                          src={src}
+                          alt={`${destination.name} — ${theme}`}
+                          loading="lazy"
+                          className="aspect-square h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                          onError={(e) => {
+                            const img = e.currentTarget;
+                            if (!img.dataset.fallback) {
+                              img.dataset.fallback = "1";
+                              img.src = destination.image || IMAGE_PLACEHOLDER;
+                            }
+                          }}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </Section>
           </div>
