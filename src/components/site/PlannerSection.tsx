@@ -15,6 +15,7 @@ import { generateItinerary, type Itinerary } from "@/lib/trip-planner.functions"
 import type { GeoResult } from "@/lib/weather";
 import { tripStore } from "@/lib/trip-storage";
 import { getDestination } from "@/lib/destinations";
+import { destinationImageUrl } from "@/lib/destination-image";
 import { usePlanner } from "@/lib/planner-context";
 
 const FormSchema = z.object({
