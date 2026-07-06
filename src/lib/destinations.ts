@@ -234,7 +234,17 @@ export const destinations: Destination[] = [
     weatherSummary:
       "Cool and moody. Summer 10–15 °C with long light; winter -2 to 4 °C with dramatic skies.",
     image: d4,
-    gallery: skogafossGallery,
+    galleryThemes: [
+      "Skogafoss waterfall",
+      "Reynisfjara black sand beach",
+      "glacier ice cave",
+      "northern lights aurora",
+      "Icelandic horse",
+      "geothermal hot spring",
+      "volcanic landscape",
+      "moss lava field",
+      "Ring Road drive",
+    ],
   },
 ];
 
