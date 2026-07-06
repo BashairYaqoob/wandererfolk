@@ -118,10 +118,16 @@ export function DestinationDialog({ destination, open, onOpenChange }: Props) {
                   >
                     <img
                       src={src}
-                      alt=""
-                      aria-hidden
+                      alt={`${destination.name} scene ${i + 1}`}
                       loading="lazy"
                       className="aspect-square h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                      onError={(e) => {
+                        const img = e.currentTarget;
+                        if (!img.dataset.fallback) {
+                          img.dataset.fallback = "1";
+                          img.src = destination.image;
+                        }
+                      }}
                     />
                   </div>
                 ))}
