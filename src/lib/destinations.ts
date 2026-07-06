@@ -250,7 +250,7 @@ export const destinations: Destination[] = [
     weatherSummary:
       "Cool and moody. Summer 10–15 °C with long light; winter -2 to 4 °C with dramatic skies.",
     image: d4,
-    gallery: [d4, d3, d2],
+    gallery: skogafossGallery,
   },
 ];
 
