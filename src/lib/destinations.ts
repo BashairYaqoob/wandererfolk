@@ -181,7 +181,17 @@ export const destinations: Destination[] = [
     weatherSummary:
       "Four distinct seasons. Spring/autumn 12–22 °C and golden; summer humid and hot; winter crisp and dry.",
     image: d3,
-    gallery: kyotoGallery,
+    galleryThemes: [
+      "Arashiyama bamboo forest",
+      "Fushimi Inari torii",
+      "geisha Gion",
+      "Kinkakuji golden pavilion",
+      "cherry blossom sakura",
+      "matcha tea ceremony",
+      "zen garden temple",
+      "kaiseki cuisine",
+      "traditional wooden street",
+    ],
   },
   {
     slug: "skogafoss",
