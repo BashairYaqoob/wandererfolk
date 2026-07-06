@@ -128,7 +128,17 @@ export const destinations: Destination[] = [
     weatherSummary:
       "Mediterranean and mild. May–October: 22–28 °C, mostly sunny, cooling breezes on the caldera.",
     image: d2,
-    gallery: santoriniGallery,
+    galleryThemes: [
+      "Oia sunset",
+      "blue dome church",
+      "white houses caldera",
+      "Aegean beach",
+      "Greek taverna food",
+      "windmill",
+      "cliffside village",
+      "vineyard Assyrtiko",
+      "fishing port Amoudi",
+    ],
   },
   {
     slug: "kyoto",
