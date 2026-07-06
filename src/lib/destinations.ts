@@ -75,7 +75,17 @@ export const destinations: Destination[] = [
     weatherSummary:
       "Warm and dry most of the year. Spring and autumn hover around 24 °C; summers push past 38 °C.",
     image: d1,
-    gallery: marrakechGallery,
+    galleryThemes: [
+      "medina old town",
+      "souk market",
+      "Bahia Palace",
+      "Koutoubia mosque",
+      "camel Sahara desert",
+      "tagine food",
+      "riad courtyard",
+      "Atlas mountains",
+      "spice market",
+    ],
   },
   {
     slug: "santorini",
