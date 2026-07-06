@@ -6,7 +6,6 @@ import { Journeys } from "@/components/site/Journeys";
 import { Journal } from "@/components/site/Journal";
 import { PlannerSection } from "@/components/site/PlannerSection";
 import { SavedTripsSection } from "@/components/site/SavedTripsSection";
-import { CTA } from "@/components/site/CTA";
 import { Footer } from "@/components/site/Footer";
 import { Toaster } from "sonner";
 
@@ -25,7 +24,6 @@ function Index() {
       <Journal />
       <PlannerSection />
       <SavedTripsSection />
-      <CTA />
       <Footer />
     </main>
   );
