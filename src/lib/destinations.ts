@@ -2,53 +2,6 @@ import d1 from "@/assets/dest-1.jpg";
 import d2 from "@/assets/dest-2.jpg";
 import d3 from "@/assets/dest-3.jpg";
 import d4 from "@/assets/dest-4.jpg";
-import { destinationGalleryUrls } from "./destination-image";
-
-const marrakechGallery = destinationGalleryUrls("Marrakech Morocco", [
-  "medina",
-  "souk market",
-  "Bahia Palace",
-  "Koutoubia mosque",
-  "camel desert",
-  "tagine food",
-  "riad courtyard",
-  "atlas mountains",
-  "spice market",
-]);
-const santoriniGallery = destinationGalleryUrls("Santorini Greece", [
-  "Oia sunset",
-  "blue dome church",
-  "white houses caldera",
-  "aegean beach",
-  "greek taverna food",
-  "windmill",
-  "cliffside village",
-  "vineyard",
-  "fishing port",
-]);
-const kyotoGallery = destinationGalleryUrls("Kyoto Japan", [
-  "bamboo forest arashiyama",
-  "fushimi inari shrine",
-  "geisha gion",
-  "kinkakuji golden pavilion",
-  "cherry blossoms sakura",
-  "tea ceremony matcha",
-  "zen garden temple",
-  "kaiseki cuisine",
-  "traditional street",
-]);
-const skogafossGallery = destinationGalleryUrls("Iceland Skogafoss", [
-  "Skogafoss waterfall",
-  "black sand beach reynisfjara",
-  "glacier ice",
-  "northern lights aurora",
-  "icelandic horse",
-  "geothermal hot spring",
-  "volcanic landscape",
-  "moss lava field",
-  "ring road",
-]);
-
 
 export type DestinationStyle =
   | "relaxed"
@@ -76,7 +29,8 @@ export type Destination = {
   transport: string;
   weatherSummary: string;
   image: string;
-  gallery: string[];
+  /** Themed search queries used to dynamically fetch a unique gallery. */
+  galleryThemes: string[];
 };
 
 export const destinations: Destination[] = [
@@ -121,7 +75,17 @@ export const destinations: Destination[] = [
     weatherSummary:
       "Warm and dry most of the year. Spring and autumn hover around 24 °C; summers push past 38 °C.",
     image: d1,
-    gallery: marrakechGallery,
+    galleryThemes: [
+      "medina old town",
+      "souk market",
+      "Bahia Palace",
+      "Koutoubia mosque",
+      "camel Sahara desert",
+      "tagine food",
+      "riad courtyard",
+      "Atlas mountains",
+      "spice market",
+    ],
   },
   {
     slug: "santorini",
@@ -164,7 +128,17 @@ export const destinations: Destination[] = [
     weatherSummary:
       "Mediterranean and mild. May–October: 22–28 °C, mostly sunny, cooling breezes on the caldera.",
     image: d2,
-    gallery: santoriniGallery,
+    galleryThemes: [
+      "Oia sunset",
+      "blue dome church",
+      "white houses caldera",
+      "Aegean beach",
+      "Greek taverna food",
+      "windmill",
+      "cliffside village",
+      "vineyard Assyrtiko",
+      "fishing port Amoudi",
+    ],
   },
   {
     slug: "kyoto",
@@ -207,7 +181,17 @@ export const destinations: Destination[] = [
     weatherSummary:
       "Four distinct seasons. Spring/autumn 12–22 °C and golden; summer humid and hot; winter crisp and dry.",
     image: d3,
-    gallery: kyotoGallery,
+    galleryThemes: [
+      "Arashiyama bamboo forest",
+      "Fushimi Inari torii",
+      "geisha Gion",
+      "Kinkakuji golden pavilion",
+      "cherry blossom sakura",
+      "matcha tea ceremony",
+      "zen garden temple",
+      "kaiseki cuisine",
+      "traditional wooden street",
+    ],
   },
   {
     slug: "skogafoss",
@@ -250,7 +234,17 @@ export const destinations: Destination[] = [
     weatherSummary:
       "Cool and moody. Summer 10–15 °C with long light; winter -2 to 4 °C with dramatic skies.",
     image: d4,
-    gallery: skogafossGallery,
+    galleryThemes: [
+      "Skogafoss waterfall",
+      "Reynisfjara black sand beach",
+      "glacier ice cave",
+      "northern lights aurora",
+      "Icelandic horse",
+      "geothermal hot spring",
+      "volcanic landscape",
+      "moss lava field",
+      "Ring Road drive",
+    ],
   },
 ];
 

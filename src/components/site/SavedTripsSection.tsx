@@ -7,6 +7,7 @@ import { tripStore, type SavedTrip } from "@/lib/trip-storage";
 import { estimateBudget, formatUsd } from "@/lib/budget";
 import { describeWeather, fetchWeather, type WeatherSnapshot } from "@/lib/weather";
 import { usePlanner } from "@/lib/planner-context";
+import { findDestinationImage, IMAGE_PLACEHOLDER } from "@/lib/image-search";
 
 export function SavedTripsSection() {
   const [trips, setTrips] = useState<SavedTrip[]>([]);
@@ -116,6 +117,7 @@ function TripCard({
 }) {
   const b = estimateBudget(trip.input);
   const [weather, setWeather] = useState<WeatherSnapshot | null>(null);
+  const [image, setImage] = useState<string | undefined>(trip.image);
 
   useEffect(() => {
     if (!trip.place) return;
@@ -128,33 +130,55 @@ function TripCard({
     return () => ctrl.abort();
   }, [trip.place]);
 
+  // Backfill image for older saved trips that don't have one yet, then
+  // persist the resolved URL so the card doesn't refetch on every render.
+  useEffect(() => {
+    if (trip.image) {
+      setImage(trip.image);
+      return;
+    }
+    let cancelled = false;
+    const query = [trip.place?.name || trip.input.destination, trip.place?.country]
+      .filter(Boolean)
+      .join(" ");
+    findDestinationImage(query)
+      .then((url) => {
+        if (cancelled) return;
+        const finalUrl = url || IMAGE_PLACEHOLDER;
+        setImage(finalUrl);
+        tripStore.save({ id: trip.id, input: trip.input, image: finalUrl });
+      })
+      .catch(() => {
+        if (!cancelled) setImage(IMAGE_PLACEHOLDER);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [trip.id, trip.image, trip.input, trip.place?.name, trip.place?.country]);
+
   const title = trip.title || trip.input.destination;
 
   return (
     <li className="warm-shadow group flex flex-col overflow-hidden rounded-3xl border border-border bg-card transition-transform hover:-translate-y-1">
       <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-        <img
-          src={
-            trip.image ||
-            `https://loremflickr.com/1200/800/${encodeURIComponent(
-              (trip.place?.name || trip.input.destination || "travel")
-                .toLowerCase()
-                .replace(/\s+/g, ","),
-            )},travel,city`
-          }
-          alt=""
-          aria-hidden
-          loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
-          onError={(e) => {
-            const img = e.currentTarget;
-            if (!img.dataset.fallback) {
-              img.dataset.fallback = "1";
-              img.src =
-                "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1200&q=80";
-            }
-          }}
-        />
+        {image ? (
+          <img
+            src={image}
+            alt=""
+            aria-hidden
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+            onError={(e) => {
+              const img = e.currentTarget;
+              if (!img.dataset.fallback) {
+                img.dataset.fallback = "1";
+                img.src = IMAGE_PLACEHOLDER;
+              }
+            }}
+          />
+        ) : (
+          <div className="h-full w-full animate-pulse bg-muted" aria-hidden />
+        )}
         <span className="absolute left-3 top-3 rounded-full bg-background/90 px-3 py-1 text-xs text-ink backdrop-blur">
           {trip.input.style}
         </span>

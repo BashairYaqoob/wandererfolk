@@ -15,7 +15,7 @@ import { generateItinerary, type Itinerary } from "@/lib/trip-planner.functions"
 import type { GeoResult } from "@/lib/weather";
 import { tripStore } from "@/lib/trip-storage";
 import { getDestination } from "@/lib/destinations";
-import { destinationImageUrl } from "@/lib/destination-image";
+import { findDestinationImage, IMAGE_PLACEHOLDER } from "@/lib/image-search";
 import { usePlanner } from "@/lib/planner-context";
 
 const FormSchema = z.object({
@@ -103,21 +103,30 @@ export function PlannerSection() {
     return getDestination(first)?.slug;
   };
 
-  const onSave = () => {
+  const onSave = async () => {
     const slug = findSlug(liveInput.destination);
     const dest = slug ? getDestination(slug) : undefined;
+
+    // Fetch a real destination image (Openverse) unless we already have a
+    // curated built-in image. Cache the resolved URL on the saved trip so it
+    // doesn't change on refresh.
+    let image: string | undefined = dest?.image;
+    if (!image) {
+      const query = [place?.name ?? liveInput.destination, place?.country]
+        .filter(Boolean)
+        .join(" ");
+      try {
+        image = (await findDestinationImage(query)) ?? undefined;
+      } catch {
+        image = undefined;
+      }
+    }
+
     const saved = tripStore.save({
       title: liveInput.destination,
       input: liveInput,
       itinerary: itinerary ?? undefined,
-      image:
-        dest?.image ??
-        destinationImageUrl(
-          [place?.name ?? liveInput.destination, place?.country]
-            .filter(Boolean)
-            .join(" "),
-          { w: 1200, h: 800 },
-        ),
+      image: image ?? IMAGE_PLACEHOLDER,
       destinationSlug: slug,
       place: place
         ? {
