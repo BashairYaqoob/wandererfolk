@@ -2,53 +2,6 @@ import d1 from "@/assets/dest-1.jpg";
 import d2 from "@/assets/dest-2.jpg";
 import d3 from "@/assets/dest-3.jpg";
 import d4 from "@/assets/dest-4.jpg";
-import { destinationGalleryUrls } from "./destination-image";
-
-const marrakechGallery = destinationGalleryUrls("Marrakech Morocco", [
-  "medina",
-  "souk market",
-  "Bahia Palace",
-  "Koutoubia mosque",
-  "camel desert",
-  "tagine food",
-  "riad courtyard",
-  "atlas mountains",
-  "spice market",
-]);
-const santoriniGallery = destinationGalleryUrls("Santorini Greece", [
-  "Oia sunset",
-  "blue dome church",
-  "white houses caldera",
-  "aegean beach",
-  "greek taverna food",
-  "windmill",
-  "cliffside village",
-  "vineyard",
-  "fishing port",
-]);
-const kyotoGallery = destinationGalleryUrls("Kyoto Japan", [
-  "bamboo forest arashiyama",
-  "fushimi inari shrine",
-  "geisha gion",
-  "kinkakuji golden pavilion",
-  "cherry blossoms sakura",
-  "tea ceremony matcha",
-  "zen garden temple",
-  "kaiseki cuisine",
-  "traditional street",
-]);
-const skogafossGallery = destinationGalleryUrls("Iceland Skogafoss", [
-  "Skogafoss waterfall",
-  "black sand beach reynisfjara",
-  "glacier ice",
-  "northern lights aurora",
-  "icelandic horse",
-  "geothermal hot spring",
-  "volcanic landscape",
-  "moss lava field",
-  "ring road",
-]);
-
 
 export type DestinationStyle =
   | "relaxed"
@@ -76,7 +29,8 @@ export type Destination = {
   transport: string;
   weatherSummary: string;
   image: string;
-  gallery: string[];
+  /** Themed search queries used to dynamically fetch a unique gallery. */
+  galleryThemes: string[];
 };
 
 export const destinations: Destination[] = [
