@@ -110,7 +110,14 @@ export function PlannerSection() {
       title: liveInput.destination,
       input: liveInput,
       itinerary: itinerary ?? undefined,
-      image: dest?.image,
+      image:
+        dest?.image ??
+        destinationImageUrl(
+          [place?.name ?? liveInput.destination, place?.country]
+            .filter(Boolean)
+            .join(" "),
+          { w: 1200, h: 800 },
+        ),
       destinationSlug: slug,
       place: place
         ? {
