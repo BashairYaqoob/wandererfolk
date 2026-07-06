@@ -133,21 +133,28 @@ function TripCard({
   return (
     <li className="warm-shadow group flex flex-col overflow-hidden rounded-3xl border border-border bg-card transition-transform hover:-translate-y-1">
       <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-        {trip.image ? (
-          <img
-            src={trip.image}
-            alt=""
-            aria-hidden
-            loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-secondary/60">
-            <span className="font-display text-3xl text-terracotta/60">
-              {title.slice(0, 1)}
-            </span>
-          </div>
-        )}
+        <img
+          src={
+            trip.image ||
+            `https://loremflickr.com/1200/800/${encodeURIComponent(
+              (trip.place?.name || trip.input.destination || "travel")
+                .toLowerCase()
+                .replace(/\s+/g, ","),
+            )},travel,city`
+          }
+          alt=""
+          aria-hidden
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+          onError={(e) => {
+            const img = e.currentTarget;
+            if (!img.dataset.fallback) {
+              img.dataset.fallback = "1";
+              img.src =
+                "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1200&q=80";
+            }
+          }}
+        />
         <span className="absolute left-3 top-3 rounded-full bg-background/90 px-3 py-1 text-xs text-ink backdrop-blur">
           {trip.input.style}
         </span>
