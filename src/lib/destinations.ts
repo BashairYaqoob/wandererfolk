@@ -207,7 +207,7 @@ export const destinations: Destination[] = [
     weatherSummary:
       "Four distinct seasons. Spring/autumn 12–22 °C and golden; summer humid and hot; winter crisp and dry.",
     image: d3,
-    gallery: [d3, d1, d2],
+    gallery: kyotoGallery,
   },
   {
     slug: "skogafoss",
