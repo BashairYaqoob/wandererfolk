@@ -7,6 +7,7 @@ import { tripStore, type SavedTrip } from "@/lib/trip-storage";
 import { estimateBudget, formatUsd } from "@/lib/budget";
 import { describeWeather, fetchWeather, type WeatherSnapshot } from "@/lib/weather";
 import { usePlanner } from "@/lib/planner-context";
+import { findDestinationImage, IMAGE_PLACEHOLDER } from "@/lib/image-search";
 
 export function SavedTripsSection() {
   const [trips, setTrips] = useState<SavedTrip[]>([]);
