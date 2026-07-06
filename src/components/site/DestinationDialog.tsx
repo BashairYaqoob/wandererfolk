@@ -6,8 +6,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Calendar, Wallet, MapPin, Utensils, Info, Cloud, Bus, Sparkles } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 import type { Destination } from "@/lib/destinations";
 import { usePlanner } from "@/lib/planner-context";
+import { searchGallery, IMAGE_PLACEHOLDER } from "@/lib/image-search";
 
 type Props = {
   destination: Destination | null;
@@ -17,6 +19,19 @@ type Props = {
 
 export function DestinationDialog({ destination, open, onOpenChange }: Props) {
   const { openPlanner } = usePlanner();
+
+  const galleryQuery = useQuery({
+    queryKey: ["destination-gallery", destination?.slug],
+    queryFn: () =>
+      searchGallery(
+        `${destination!.name} ${destination!.country}`,
+        destination!.galleryThemes,
+      ),
+    enabled: Boolean(open && destination),
+    staleTime: 1000 * 60 * 60,
+  });
+
+
 
   if (!destination) return null;
 
