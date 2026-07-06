@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { PlannerProvider } from "../lib/planner-context";
 
 function NotFoundComponent() {
   return (
@@ -77,21 +78,36 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Wanderfolk- Plan your trips with us" },
+      {
+        name: "description",
+        content:
+          "Wanderfolk crafts warm, hand-planned itineraries through deserts, coastlines and quiet towns. Slow travel, thoughtfully sketched.",
+      },
+      { property: "og:title", content: "Wanderfolk- Plan your trips with us" },
+      {
+        property: "og:description",
+        content:
+          "Warm, hand-planned itineraries for slow, thoughtful journeys around the world.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Wanderfolk- Plan your trips with us" },
+      { name: "description", content: "Wanderfolk crafts warm, hand-planned itineraries through deserts, coastlines and quiet towns. Slow travel, thoughtfully sketched." },
+      { property: "og:description", content: "Wanderfolk crafts warm, hand-planned itineraries through deserts, coastlines and quiet towns. Slow travel, thoughtfully sketched." },
+      { name: "twitter:description", content: "Wanderfolk crafts warm, hand-planned itineraries through deserts, coastlines and quiet towns. Slow travel, thoughtfully sketched." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/VT29iNlos1dkzsY55dxw5qWlnyE3/social-images/social-1783345135109-image.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/VT29iNlos1dkzsY55dxw5qWlnyE3/social-images/social-1783345135109-image.webp" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=Caveat:wght@500;600&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
@@ -119,8 +135,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <PlannerProvider>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </PlannerProvider>
     </QueryClientProvider>
   );
 }
