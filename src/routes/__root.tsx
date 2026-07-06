@@ -96,8 +96,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Wanderfolk crafts warm, hand-planned itineraries through deserts, coastlines and quiet towns. Slow travel, thoughtfully sketched." },
       { property: "og:description", content: "Wanderfolk crafts warm, hand-planned itineraries through deserts, coastlines and quiet towns. Slow travel, thoughtfully sketched." },
       { name: "twitter:description", content: "Wanderfolk crafts warm, hand-planned itineraries through deserts, coastlines and quiet towns. Slow travel, thoughtfully sketched." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/VT29iNlos1dkzsY55dxw5qWlnyE3/social-images/social-1783345135109-image.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/VT29iNlos1dkzsY55dxw5qWlnyE3/social-images/social-1783345135109-image.webp" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/d59996df-a59b-4a96-becc-71af95d5ba39" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/d59996df-a59b-4a96-becc-71af95d5ba39" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
